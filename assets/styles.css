@@ -1,0 +1,71 @@
+/* General Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f5f5f5;
+    color: #333;
+}
+
+
+
+/* Header */
+h1 {
+    background-color: #1b5aa5;
+    color: white;
+    padding: 20px;
+    margin: 0;
+    font-size: 2.5em;
+    font-weight: bold;
+    text-align: center;
+}
+
+
+
+/* Sections */
+section {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+section h2 {
+    font-size: 1.8em;
+    color: #2a4477;
+    margin-bottom: 10px;
+}
+
+section p {
+    font-size: 1em;
+    line-height: 1.6;
+}
+
+
+
+
+/* Map Container */
+#map-container {
+    text-align: center;
+    margin: 40px auto;
+}
+
+iframe {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    background: #333;
+    color: white;
+    margin-top: 40px;
+}
