@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>French Money Map</title>
+        <link rel="stylesheet" href="assets/styles.css">
+        
+        <!-- Leaflet CSS -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+        
+        <!-- Leaflet JS -->
+        <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+    </head>
+    
+<body>
+    <h1>French Money Map</h1>
+
+    <div class="container">
+        <label for="department-select">Select a Department:</label>
+        <select id="department-select">
+            <option value="">All Departments</option>
+        </select>
+    </div>
+
+    <div id="map"></div>
+
+    <script>
+        window.initSqlJs = function (config) {
+            return fetch("libs/sql-wasm.wasm")
+                .then(response => response.arrayBuffer())
+                .then(bytes => {
+                    const moduleConfig = Object.assign({}, config, {
+                        wasmBinary: bytes
+                    });
+                    return new Promise((resolve, reject) => {
+                        Module(moduleConfig).then(resolve).catch(reject);
+                    });
+                });
+        };
+    </script>
+    <script src="libs/sql-wasm.js"></script>
+    
+    <script src="assets/script.js"></script>
+
+</body>
+</html>
