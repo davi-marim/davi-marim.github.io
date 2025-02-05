@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             }
         });
 
-        let query = "SELECT INSEE_COM, NOM, INSEE_DEP, INSEE_REG, AsGeoJSON(geometry) AS geometry, nearest_ATM, total_population FROM communes";
+        let query = "SELECT * FROM communes";
         if (department) {
             query += ` WHERE INSEE_DEP = '${department}'`;
         }
