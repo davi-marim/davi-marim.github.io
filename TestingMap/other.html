@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>French Money Map</title>
+    <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+    <h1>French Money Map</h1>
+
+    <section class="description">
+        <h2>Project Overview</h2>
+        <p>
+            This project aims to analyze the accessibility of cash withdrawal points across France. As digital payments become more dominant and the costs of cash transactions increase, ensuring equitable access to ATMs remains a critical issue. By mapping and evaluating the spatial distribution of cash access points, we seek to provide a valuable tool for understanding the efficiency of cash circulation and identifying potential service gaps.
+        </p>
+        <p>
+            A key focus of this study is to measure the actual travel distance required to reach the nearest ATM. This allows us to assess disparities in cash access across different regions and offer insights into potential improvements in financial infrastructure.
+        </p>
+    </section>
+
+    <section class="methodology">
+        <h2>Methodology</h2>
+        <p>
+            To conduct this analysis, we utilized demographic data from <strong>INSEE</strong>, which provides detailed population statistics, including density at a granular level. INSEE's dataset covers over 65 million residents and includes data at multiple geographical scales, with the most precise being a 1 km² grid. This high-resolution data helps us better understand local demographic patterns and identify areas with limited access to financial services.
+        </p>
+        <p>
+            Information on ATM locations was sourced from <strong>Groupement Carte Bancaire</strong>, enabling precise geolocation of cash withdrawal points across the country.
+        </p>
+        <p>
+            The travel distance calculations were based on a <strong>1000x1000 meter geographical grid</strong> across France. Each distance was measured from the nearest official address to the center of every populated hectare, ensuring a realistic assessment of accessibility.
+        </p>
+        <p>
+            Two types of distance metrics were considered:
+            <ul>
+                <li><strong>Euclidean distance</strong> (or "as-the-crow-flies"), providing a direct measurement between a populated hectare and the closest ATM.</li>
+                <li><strong>Population-weighted travel distance</strong>, accounting for population spatial distribution and calculating the average distance residents must travel to access cash, grouped at the <strong>commune level</strong>.</li>
+            </ul>
+        </p>
+    </section>
+
+    <section class="results">
+        <h2>Results</h2>
+        <p>
+            The analysis reveals significant variations in ATM accessibility across France. While urban areas tend to have a dense ATM network, rural and less populated regions face considerably greater travel distances.
+        </p>
+        <p>
+            Our study in France reveals that the average distance to the nearest ATM is 1.6 km, with half of the population traveling less than 0.7 km, and 90% residing within 4.7 km of a cash withdrawal point. We computed population-weighted statistics to assess the accessibility of ATMs and identify areas where access to cash services may be limited.
+        </p>
+        <p>
+            These findings were analyzed through spatial modeling techniques to identify regional disparities in ATM access, providing a detailed view of areas where infrastructure improvements may be required to ensure equitable access to financial services. The results can guide targeted interventions and policy decisions aimed at optimizing the distribution of ATMs across France.
+        </p>
+        <p>
+            <strong>Explore the map below to see the average travel distance to the nearest ATM at the municipal level.</strong>
+        </p>
+
+        <iframe src="france_commune_nearest_ATM.html" width="100%" height="700px"></iframe>
+
+        <p>
+            The following chart illustrates how the proportion of the population with easy access to ATMs varies as the distance threshold increases.
+        </p>
+
+        <iframe src="percentage_population_distance_threshold.html" width="100%" height="620px"></iframe>
+
+    </section>
+
+
+</body>
+</html>
+

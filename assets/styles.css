@@ -1,71 +1,309 @@
-/* General Styles */
-body {
-    font-family: 'Roboto', sans-serif;
-    margin: 0;
-    padding: 0;
-    background: #f5f5f5;
+/* GENERAL */
+
+body, html {
+    padding: 0px 0px 0px 0px;
+    max-height: 100vh;
+    max-width: 100vw;
+    height: 100%;
+    font-family: "Baloo 2", sans-serif;
+    background-color: white;
+    overflow-x: hidden;
+}
+
+header {
+    width: 100%;
+    background-color: #08519c;
+    font-size: 12px;
+    color: white;
+    padding: 0px;
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    font-size: 24px;
+    font-weight: 10;
+}
+
+.container {
+    display: flex;
+    max-height: 100vh;
+    max-width: 100vw; /* Prevents container from exceeding the viewport width */
+    height: 94.8%;
+    overflow-x: hidden;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding: 0px 0px 0px 0px;
+}
+
+
+
+
+
+
+/* SIDEBAR */
+
+.sidebar {
+    width: 300px;
+    background: #f7f7f7;
+    color: #636363;
+    /* padding: 20px; */
+    max-height: 100vh;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.sidebar h2 {
+    font-size: 18px;
+}
+
+
+.sidebar-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #969696;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    margin-bottom: -5px;
+    box-shadow: 0 0 25px rgba(0,0,0,0.1);
+}
+
+.sidebar-btn:hover {
+    background-color: #636363;
+}
+
+
+
+
+/* DROPDOWN SELECTION BAR */
+.dropdown {
+    position: relative;
+    display: grid;
+    grid-template-areas: "dropdown";
+    align-items: center;
+    min-width: 15ch;
+    max-width: 30ch;
+    border: 1px solid var(--select-border);
+    border-radius: 0.25em;
+    padding: 0.25em 0.5em;
+    font-size: 1.25rem;
+    cursor: pointer;
+    line-height: 1.5;
+    background-color: #ffffff;
+    background-image: linear-gradient(to top, #f9f9f9, #fff 33%);
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.dropdown-toggle {
+    width: 100%;
+    text-align: left;
+    background: transparent;
+    color: #636363;
+    border: none;
+    padding: 10px;
+    font-size: 1.125rem;
+    font-weight: 500;
+}
+
+.dropdown-menu {
+    max-height: 300px; /* Set dropdown height */
+    overflow-y: auto;  /* Enable scroll */
+    border: 1px solid var(--select-border);
+    border-radius: 0.25em;
+    background-color: #fff;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.dropdown-item {
+    font-size: 1rem;
+    padding: 8px 15px;
+    cursor: pointer;
     color: #333;
 }
 
-
-
-/* Header */
-h1 {
-    background-color: #1b5aa5;
+.dropdown-item:hover {
+    background-color: #08519c;
     color: white;
-    padding: 20px;
-    margin: 0;
-    font-size: 2.5em;
-    font-weight: bold;
-    text-align: center;
+}
+
+
+label {
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin-top: 20px;
+    margin-bottom: 0px;
+    margin-left: 20px;
+  }
+  
+
+
+
+
+
+/* MAIN CONTENT */
+
+.main-content {
+    max-width: 100vw;
+    max-height: 100vh;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding: 0px 0px 0px 0px;
+}
+
+.main-content h1 {
+    font-size: 36px;
+    margin-top: 0.5em;
+    margin-bottom: 0px;
+    margin-left: 1em;
+}
+
+
+#map-content {
+    max-width: 100vw;
+    max-height: 100vh;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding: 0px 0px 0px 0px;
+}
+
+#map-content h1 {
+    font-size: 36px;
+    margin-top: 0.5em;
+    margin-bottom: 0px;
+    margin-left: 1em;
+}
+
+#summary-content {
+    max-width: 100vw;
+    max-height: 100vh;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding: 0px 0px 0px 0px;
+}
+
+#conclusion-content h1 {
+    font-size: 36px;
+    margin-top: 0.5em;
+    margin-bottom: 0px;
+    margin-left: 1em;
+}
+
+#conclusion-content {
+    max-width: 100vw;
+    max-height: 100vh;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding: 0px 0px 0px 0px;
+}
+
+#map-content h1 {
+    font-size: 36px;
+    margin-top: 0.5em;
+    margin-bottom: 0px;
+    margin-left: 1em;
 }
 
 
 
-/* Sections */
-section {
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 20px;
+
+/* STATISTICS */
+
+.stats-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
     background: white;
+    padding: 15px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.stat-box {
+    background: #08519c;
+    padding: 15px 7px 7px 7px;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-section h2 {
-    font-size: 1.8em;
-    color: #2a4477;
-    margin-bottom: 10px;
-}
-
-section p {
-    font-size: 1em;
-    line-height: 1.6;
-}
-
-
-
-
-/* Map Container */
-#map-container {
     text-align: center;
-    margin: 40px auto;
-}
-
-iframe {
-    border: none;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-
-
-
-/* Footer */
-footer {
-    text-align: center;
-    padding: 20px;
-    background: #333;
+    width: 20%;
+    font-size: 16px;
     color: white;
-    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.stat-box span {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 0px;
+    line-height: 24px;
+}
+
+
+
+
+
+
+/* MAP CONFIG */
+#map {
+    flex: 1;
+    height:100%;
+    width: 100%;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding: 0px 0px 0px 0px;
+}
+
+.info {
+    padding: 6px 8px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: white;
+    background: rgba(255,255,255,0.8);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+
+.legend {
+    line-height: 18px;
+    color: #555;
+    padding: 6px 8px;
+    background: white;
+    background: rgba(255,255,255,0.8);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+.legend i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
 }

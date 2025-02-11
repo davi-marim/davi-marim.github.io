@@ -1,0 +1,191 @@
+/* GENERAL */
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: "Baloo 2", sans-serif;
+    background-color: white;
+}
+
+header {
+    width: 100%;
+    background-color: #08519c;
+    font-size: 12px;
+    color: white;
+    padding: 0px;
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    font-size: 24px;
+    font-weight: 10;
+}
+
+.container {
+    display: flex;
+    height: 80vh;
+    width: 100%;
+}
+
+.main-content h1 {
+    font-size: 36px;
+    margin-top: 0.5em;
+    margin-bottom: 0px;
+    margin-left: 1em;
+}
+
+
+/* SIDEBAR */
+
+.sidebar {
+    width: 350px;
+    background: #f7f7f7;
+    color: #636363;
+    padding: 20px;
+    height: 930px;
+}
+
+.sidebar h2 {
+    font-size: 18px;
+}
+
+
+
+
+/* SELECTION BAR */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --select-border: #777;
+  --select-arrow: var(--select-border);
+}
+
+select {
+  /* // A reset of styles, including removing the default dropdown arrow */
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  padding: 0 1em 0 0;
+  margin: 10px;
+  width: 90%;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: inherit;
+  line-height: inherit;
+  z-index: 1;
+  &::-ms-expand {
+    display: none;
+  }
+  outline: none;
+}
+
+.select {
+  display: grid;
+  grid-template-areas: "select";
+  align-items: center;
+  position: relative;
+  select,
+  &::after {
+    grid-area: select;
+  }
+  min-width: 15ch;
+  max-width: 30ch;
+  border: 1px solid var(--select-border);
+  border-radius: 0.25em;
+  padding: 0.25em 0.5em;
+  font-size: 1.25rem;
+  cursor: pointer;
+  line-height: 1.5;
+  background-color: #fff;
+  background-image: linear-gradient(to top, #f9f9f9, #fff 33%);
+}
+
+label {
+  font-size: 1.125rem;
+  font-weight: 500;
+  margin-top: 10rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* MAIN CONTENT */
+
+.main-content {
+    flex: 1;
+    /* display: flex; */
+    flex-direction: column;
+}
+
+.stats-container {
+    display: flex;
+    justify-content: space-around;
+    background: white;
+    padding: 15px;
+}
+
+.stat-box {
+    background: #08519c;
+    padding: 15px 7px 7px 7px;
+    border-radius: 10px;
+    text-align: center;
+    width: 20%;
+    font-size: 16px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.stat-box span {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 0px;
+    line-height: 24px;
+}
+
+
+/* MAP CONFIG */
+#map {
+    flex: 1;
+    height:753px;
+}
+
+.info {
+    padding: 6px 8px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: white;
+    background: rgba(255,255,255,0.8);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+
+.legend {
+    line-height: 18px;
+    color: #555;
+    padding: 6px 8px;
+    background: white;
+    background: rgba(255,255,255,0.8);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+.legend i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
+}

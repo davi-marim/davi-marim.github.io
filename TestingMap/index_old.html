@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>French Money Map</title>
+        <link rel="stylesheet" href="assets/styles.css">
+        
+        <!-- Leaflet CSS -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+        
+        <!-- Leaflet JS -->
+        <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+    </head>
+    
+<body>
+    <header>
+        French Money Map
+    </header>
+
+
+
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <label for="department-select">Department:</label>
+            <!-- <input type="text" id="department-search" placeholder="Search department..."> -->
+            <select class="select" id="department-select"></select>
+            <br>
+    
+            <label for="region-select">Region:</label>
+            <select class="select" id="region-select"></select>
+            <br>
+    
+            <label for="libdens-select">Commune Type:</label>
+            <select class="select" id="libdens-select"></select>
+            <br>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <h1>
+                Overview: Spatial Access to Financial Services
+            </h1>
+            <div class="stats-container">
+                <div class="stat-box" id="num-municipalities"></div>
+                <div class="stat-box" id="percentage-households"></div>
+                <div class="stat-box" id="avg-distance"></div>
+                <div class="stat-box" id="households-5km"></div>
+            </div>
+            <div id="map"></div>
+        </main>
+    </div>
+    
+    <script src="libs/sql-wasm.js"></script>
+    <script src="assets/script.js"></script>
+</body>
+</html>
+
+
+
+
