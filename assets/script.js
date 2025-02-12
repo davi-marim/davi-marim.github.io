@@ -339,16 +339,16 @@ document.addEventListener("DOMContentLoaded", async function () {
         const totalPopulationSelection = db.exec(totalSelectionQuery)[0].values[0][0] || 1; // Avoid division by 0
     
         const bins = [];
-        for (let i = 0; i <= 10000; i += 500) {
+        for (let i = 0; i < 10000; i += 500) {
             bins.push(`${i}-${i + 500}`);
         }
     
         const customXTicks = {
-            "1500-2000": 2,
-            "3500-4000": 4,
-            "6500-7000": 6,
-            "7500-8000": 8,
-            "9500-10000": 10
+            "1500-2000": "1500-2000",
+            "3500-4000": "3500-4000",
+            "5500-6000": "5500-6000",
+            "7500-8000": "7500-8000",
+            "9500-10000": "9500-10000"
         };
     
         function getCategory(distance) {
@@ -418,8 +418,9 @@ document.addEventListener("DOMContentLoaded", async function () {
         }, {});
     
         const categories = bins.concat(["10000m+"]);
-        const francePercentages = categories.map(cat => franceData[cat] || 0);
-        const selectionPercentages = categories.map(cat => selectionData[cat] || 0);
+        const francePercentages = categories.map(cat => (franceData[cat] || 0));
+        const selectionPercentages = categories.map(cat => (selectionData[cat] || 0));
+
     
         const traceFrance = {
             x: categories.map(cat => customXTicks[cat] !== undefined ? customXTicks[cat] : cat), // Apply custom x-ticks
@@ -429,23 +430,24 @@ document.addEventListener("DOMContentLoaded", async function () {
             marker: { color: "#08519c" },
             hovertemplate: "%{y:.1f}%" // Custom hover format
         };
-    
+
         const traceSelection = {
             x: categories.map(cat => customXTicks[cat] !== undefined ? customXTicks[cat] : cat),
             y: selectionPercentages,
             name: "Selection",
             type: "bar",
-            marker: { color: "#f28e2b" },
+            marker: { color: "#bdd7e7" },
             hovertemplate: "%{y:.1f}%"
         };
     
         const layout = {
-            title: "Share of Households by Travel Distance to Nearest ATM (in m)",
-            xaxis: { title: "Travel Distance to ATM (in m)", tickvals: Object.values(customXTicks), ticktext: Object.keys(customXTicks) },
-            yaxis: { title: "Percentage of Population", tickformat: ".0%", dtick: 10 }, // Show only multiples of 10
+            margin: { l: 40, r: 20, t: 20, b: 40 }, // Minimize margin
+            // title: "Share of Households by Travel Distance to Nearest ATM (in m)",
+            xaxis: { title: "Travel Distance to ATM (in m)", tickvals: Object.values(customXTicks), ticktext: Object.values(customXTicks) },
+            yaxis: { title: "Percentage of Population", dtick: 10 }, // Show only multiples of 10
             barmode: "group",
-            width: 800,  // Max figure size
-            height: 500,
+            width: 600,  // Max figure size
+            height: 400,
             hovermode: "x unified", // Custom hover mode
             showlegend: true,
             legend: { x: 1, y: 1, xanchor: "right", yanchor: "top" } // Legend inside plot (upper right)
@@ -455,68 +457,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
     
 
-
-    // function loadFigure2(db, department, region, libdens) {
-    //     const totalPopulationFrance = db.exec("SELECT SUM(total_population) FROM communes;")[0].values[0][0];
-    
-    //     const order = [
-    //         "Grands centres urbains",
-    //         "Centres urbains intermédiaires",
-    //         "Ceintures urbaines",
-    //         "Petites villes",
-    //         "Bourgs ruraux",
-    //         "Rural à habitat dispersé",
-    //         "Rural à habitat très dispersé"
-    //     ];
-    
-    //     let query = `
-    //         SELECT 
-    //             libdens, 
-    //             SUM(CASE WHEN nearest_ATM <= 500 THEN total_population ELSE 0 END) AS "0-500m",
-    //             SUM(CASE WHEN nearest_ATM > 500 AND nearest_ATM <= 1000 THEN total_population ELSE 0 END) AS "500-1000m",
-    //             SUM(CASE WHEN nearest_ATM > 1000 AND nearest_ATM <= 2000 THEN total_population ELSE 0 END) AS "1000-2000m",
-    //             SUM(CASE WHEN nearest_ATM > 2000 AND nearest_ATM <= 5000 THEN total_population ELSE 0 END) AS "2000-5000m",
-    //             SUM(CASE WHEN nearest_ATM > 5000 THEN total_population ELSE 0 END) AS "5000m+",
-    //             SUM(total_population) AS total_population
-    //         FROM communes WHERE 1=1
-    //         ${department ? ` AND INSEE_DEP = '${department}'` : ""}
-    //         ${region ? ` AND INSEE_REG = '${region}'` : ""}
-    //         ${libdens ? ` AND libdens = '${libdens}'` : ""}
-    //         GROUP BY libdens
-    //     `;
-    
-    //     const result = db.exec(query)[0].values;
-    
-    //     const dataMap = result.reduce((acc, row) => {
-    //         acc[row[0]] = row.slice(1);
-    //         return acc;
-    //     }, {});
-    
-    //     const labels = order.filter(label => dataMap[label]);
-    //     const categories = ["0-500m", "500-1000m", "1000-2000m", "2000-5000m", "5000m+"];
-    
-    //     const values = categories.map((_, i) => labels.map(label => (dataMap[label][i] / dataMap[label][5]) * 100));
-    
-    //     const traces = categories.map((category, i) => ({
-    //         x: values[i],
-    //         y: labels,
-    //         name: category,
-    //         type: "bar",
-    //         orientation: "h",
-    //         marker: { color: ["#08519c", "#3182bd", "#6baed6", "#bdd7e7", "#eff3ff"][i] }
-    //     }));
-    
-    //     const layout = {
-    //         title: "Share of Households by Travel Distance to Nearest ATM (in m)",
-    //         xaxis: { title: "Percentage of Population", range: [0, 100], tickformat: ".1f" },
-    //         yaxis: { title: "Types of Municipalities", categoryorder: "array", categoryarray: order },
-    //         barmode: "stack"
-    //     };
-    
-    //     Plotly.newPlot("fig2", traces, layout);
-    // }
-    
-    
 
     function loadFigure2(db, department, region, libdens) {
         const totalPopulationFrance = db.exec("SELECT SUM(total_population) FROM communes;")[0].values[0][0];
@@ -553,20 +493,38 @@ document.addEventListener("DOMContentLoaded", async function () {
         const categories = ["0-500m", "500-1000m", "1000-2000m", "2000-5000m", "5000m+"];
     
         const values = categories.map((_, i) => labels.map(label => (result.find(row => row[0] === label)[i + 1] / result.find(row => row[0] === label)[6]) * 100));
-    
+
+        const customColors = ["#08519c", "#3182bd", "#6baed6", "#bdd7e7", "#eff3ff"];
+
         const traces = categories.map((category, i) => ({
             x: values[i],
             y: labels,
             name: category,
             type: "bar",
             orientation: "h",
+            marker: { color: customColors[i] },
             width: 0.5 // Set max bar width
         }));
     
         const layout = {
-            width: 800,
-            height: 500,
-            barmode: "stack"
+            // title: "Share of Households by Travel Distance to Nearest ATM (in m)",
+            xaxis: { title: "Percentage of Population", range: [0, 100], tickformat: ".1f%" },
+            yaxis: { 
+                // title: "Types of Municipalities",
+                categoryorder: "array", 
+                categoryarray: order,
+                automargin: true // Ensures y-axis labels are not cut off
+            },
+            legend: {
+                x: -0.1, y: -0.2,  // Move legend closer to the y-axis
+                xanchor: "left", yanchor: "top",
+                orientation: "h",  // Keep it horizontal
+                font: { size: 10 }  // Reduce font size
+            },
+            barmode: "stack",
+            width: 600,
+            height: 400,
+            margin: { l: 40, r: 20, t: 20, b: 40 }, // Minimize margin
         };
     
         Plotly.newPlot("fig2", traces, layout, { displayModeBar: false }); // Remove actions
