@@ -444,7 +444,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             margin: { l: 40, r: 20, t: 20, b: 40 }, // Minimize margin
             // title: "Share of Households by Travel Distance to Nearest ATM (in m)",
             xaxis: { title: "Travel Distance to ATM (in m)", tickvals: Object.values(customXTicks), ticktext: Object.values(customXTicks) },
-            yaxis: { title: "Percentage of Population", dtick: 10 }, // Show only multiples of 10
+            yaxis: { title: "Share of population", dtick: 10 }, // Show only multiples of 10
             barmode: "group",
             width: 600,  // Max figure size
             height: 400,
@@ -508,7 +508,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     
         const layout = {
             // title: "Share of Households by Travel Distance to Nearest ATM (in m)",
-            xaxis: { title: "Percentage of Population", range: [0, 100], tickformat: ".1f%" },
+            xaxis: { title: "Share of population", range: [0, 100], tickformat: ".1f%" },
             yaxis: { 
                 // title: "Types of Municipalities",
                 categoryorder: "array", 

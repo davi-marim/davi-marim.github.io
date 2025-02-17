@@ -305,3 +305,11 @@ label {
     margin-right: 8px;
     opacity: 0.7;
 }
+
+
+
+
+.conclusion-container {
+    padding: 20px 0px 0px 40px;
+    line-height: 1.6;  /* Improves readability */
+}

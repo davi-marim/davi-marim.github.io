@@ -34,9 +34,9 @@
     <div class="container">
         <!-- Sidebar -->
         <aside class="sidebar">
-            <button class="sidebar-btn" id="map-btn">Map</button>
             <button class="sidebar-btn" id="summary-btn">Summary</button>
-            <button class="sidebar-btn" id="conclusion-btn">Conclusion</button>
+            <button class="sidebar-btn" id="map-btn">Map</button>
+            <button class="sidebar-btn" id="conclusion-btn">Methodology</button>
 
             <label for="department-select">Department:</label>
             <div class="dropdown">
@@ -81,13 +81,18 @@
 
             <div id="summary-content" style="display: none;">
                 <h1>Summary</h1>
-                <div id="fig1"></div>
-                <div id="fig2"></div>
+                <div id="fig-container" style="display: flex; gap: 20px; justify-content: center;">
+                    <div id="fig1"></div>
+                    <div id="fig2"></div>
+                </div>
             </div>
         
             <div id="conclusion-content" style="display: none;">
-                <h1>Conclusion</h1>
-                <p>This section will summarize the key insights...</p>
+                <h1>Methodology</h1>
+                <div class="conclusion-container">
+                    <p>Under construction...</p>
+                    <p>More details will be added soon.</p>
+                </div>
             </div>
 
         </main>
