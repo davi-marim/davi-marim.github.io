@@ -47,9 +47,34 @@ document.addEventListener("DOMContentLoaded", async function () {
             });
             regionDropdown.appendChild(listItem);
         });
+
+        const order = [
+            "Cities",
+            "Dense towns",
+            "Semi-dense towns",
+            "Suburban areas",
+            "Villages",
+            "Dispersed rural areas",
+            "Mostly unhabitated areas"
+        ];
     
         // Populate LIBDENS dropdown
-        const libdensValues = db.exec("SELECT DISTINCT libdens FROM communes ORDER BY libdens;")[0].values;
+        const libdensValues = db.exec(`
+            SELECT DISTINCT libdens 
+            FROM communes 
+            ORDER BY CASE 
+                WHEN libdens = 'Cities' THEN 1
+                WHEN libdens = 'Dense towns' THEN 2
+                WHEN libdens = 'Semi-dense towns' THEN 3
+                WHEN libdens = 'Suburban areas' THEN 4
+                WHEN libdens = 'Villages' THEN 5
+                WHEN libdens = 'Dispersed rural areas' THEN 6
+                WHEN libdens = 'Mostly unhabitated areas' THEN 7
+                ELSE 8 -- Default fallback
+            END;
+        `)[0].values;        
+        libdensValues.sort((a, b) => order.indexOf(a) - order.indexOf(b));
+        console.log(libdensValues);
         const libdensDropdown = document.getElementById("libdens-select");
         libdensValues.forEach(ld => {
             const listItem = document.createElement("li");
@@ -69,7 +94,8 @@ document.addEventListener("DOMContentLoaded", async function () {
         loadFigure1(db, "", "", "");
         loadFigure2(db, "", "", "");
     });
-    
+
+
 
     // Info Control
     const info = L.control();
@@ -80,9 +106,10 @@ document.addEventListener("DOMContentLoaded", async function () {
     };
     info.update = function (props) {
         this.div.innerHTML = props
-            ? `<b>${props.name}</b>
-            <br>Nearest ATM: ${props.nearest_ATM}m
-            <br>Population: ${props.total_population}`
+            ? `<h6>${props.name}</h6>
+            <br>Average distance to
+            nearest ATM: ${props.nearest_ATM}m`
+            // <br>Population: ${props.total_population}
             : "Hover over a commune";
     };
     info.addTo(map);
@@ -209,123 +236,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         document.getElementById(contentId).style.display = "flex";
     }
     
-
-
-    // function loadFigure1(db, department, region, libdens) {
-    //     const totalPopulationFrance = db.exec("SELECT SUM(total_population) FROM communes;")[0].values[0][0];
-
-    //     const totalSelectionQuery = `
-    //         SELECT SUM(total_population) FROM communes WHERE 1=1
-    //         ${department ? ` AND INSEE_DEP = '${department}'` : ""}
-    //         ${region ? ` AND INSEE_REG = '${region}'` : ""}
-    //         ${libdens ? ` AND libdens = '${libdens}'` : ""}
-    //     `;
-    //     const totalPopulationSelection = db.exec(totalSelectionQuery)[0].values[0][0] || 1; // Avoid division by 0
-
-    
-    //     const bins = [];
-    //     for (let i = 0; i <= 10000; i += 500) {
-    //         bins.push(`${i}-${i + 500}`);
-    //     }
-    
-    //     function getCategory(distance) {
-    //         if (distance > 10000) return "10000m+";
-    //         return `${Math.floor(distance / 500) * 500}-${Math.floor(distance / 500) * 500 + 500}`;
-    //     }
-    
-    //     const query = `
-    //         SELECT 
-    //             SUM(total_population) AS population, 
-    //             CASE 
-    //                 ${bins.map((range, i) => `WHEN nearest_ATM BETWEEN ${i * 500} AND ${(i + 1) * 500} THEN '${range}'`).join("\n")}
-    //                 ELSE '10000m+'
-    //             END AS distance_category
-    //         FROM communes 
-    //         GROUP BY distance_category
-    //         ORDER BY distance_category;
-    //     `;
-    
-    //     const franceData = db.exec(query)[0].values.reduce((acc, row) => {
-    //         acc[row[1]] = (row[0] / totalPopulationFrance) * 100;
-    //         return acc;
-    //     }, {});
-
-    //     let selectionQuery = `
-    //         SELECT 
-    //             SUM(total_population) AS population, 
-    //             CASE 
-    //                 WHEN nearest_ATM BETWEEN 0 AND 500 THEN '0-500'
-    //                 WHEN nearest_ATM BETWEEN 500 AND 1000 THEN '500-1000'
-    //                 WHEN nearest_ATM BETWEEN 1000 AND 1500 THEN '1000-1500'
-    //                 WHEN nearest_ATM BETWEEN 1500 AND 2000 THEN '1500-2000'
-    //                 WHEN nearest_ATM BETWEEN 2000 AND 2500 THEN '2000-2500'
-    //                 WHEN nearest_ATM BETWEEN 2500 AND 3000 THEN '2500-3000'
-    //                 WHEN nearest_ATM BETWEEN 3000 AND 3500 THEN '3000-3500'
-    //                 WHEN nearest_ATM BETWEEN 3500 AND 4000 THEN '3500-4000'
-    //                 WHEN nearest_ATM BETWEEN 4000 AND 4500 THEN '4000-4500'
-    //                 WHEN nearest_ATM BETWEEN 4500 AND 5000 THEN '4500-5000'
-    //                 WHEN nearest_ATM BETWEEN 5000 AND 5500 THEN '5000-5500'
-    //                 WHEN nearest_ATM BETWEEN 5500 AND 6000 THEN '5500-6000'
-    //                 WHEN nearest_ATM BETWEEN 6000 AND 6500 THEN '6000-6500'
-    //                 WHEN nearest_ATM BETWEEN 6500 AND 7000 THEN '6500-7000'
-    //                 WHEN nearest_ATM BETWEEN 7000 AND 7500 THEN '7000-7500'
-    //                 WHEN nearest_ATM BETWEEN 7500 AND 8000 THEN '7500-8000'
-    //                 WHEN nearest_ATM BETWEEN 8000 AND 8500 THEN '8000-8500'
-    //                 WHEN nearest_ATM BETWEEN 8500 AND 9000 THEN '8500-9000'
-    //                 WHEN nearest_ATM BETWEEN 9000 AND 9500 THEN '9000-9500'
-    //                 WHEN nearest_ATM BETWEEN 9500 AND 10000 THEN '9500-10000'
-    //                 ELSE '10000m+'
-    //             END AS distance_category
-    //         FROM communes 
-    //         WHERE 1=1 `;  // Base condition to append more filters dynamically
-
-    //     // Dynamically append filters
-    //     if (department) selectionQuery += ` AND INSEE_DEP = '${department}'`;
-    //     if (region) selectionQuery += ` AND INSEE_REG = '${region}'`;
-    //     if (libdens) selectionQuery += ` AND libdens = '${libdens}'`;
-
-    //     // Add GROUP BY and ORDER BY at the end
-    //     selectionQuery += ` GROUP BY distance_category ORDER BY distance_category;`;
-
-    //     const selectionData = db.exec(selectionQuery)[0].values.reduce((acc, row) => {
-    //         acc[row[1]] = (row[0] / totalPopulationSelection) * 100;
-    //         return acc;
-    //     }, {});
-
-    
-
-    //     const categories = bins.concat(["10000m+"]);
-    //     const francePercentages = categories.map(cat => franceData[cat] || 0);
-    //     const selectionPercentages = categories.map(cat => selectionData[cat] || 0);
-    
-    //     const traceFrance = {
-    //         x: categories,
-    //         y: francePercentages,
-    //         name: "France",
-    //         type: "bar",
-    //         marker: { color: "#08519c" }
-    //     };
-    
-    //     const traceSelection = {
-    //         x: categories,
-    //         y: selectionPercentages,
-    //         name: "Selection",
-    //         type: "bar",
-    //         marker: { color: "#f28e2b" }
-    //     };
-    
-    //     const layout = {
-    //         title: "Share of Households by Travel Distance to Nearest ATM (in m)",
-    //         xaxis: { title: "Travel Distance to ATM (in m)" },
-    //         yaxis: { title: "Percentage of Population", tickformat: ".1f" },
-    //         barmode: "group"
-    //     };
-    
-    //     Plotly.newPlot("fig1", [traceFrance, traceSelection], layout);
-    // }
-
-
-
 
     function loadFigure1(db, department, region, libdens) {
         const totalPopulationFrance = db.exec("SELECT SUM(total_population) FROM communes;")[0].values[0][0];
@@ -460,17 +370,18 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     function loadFigure2(db, department, region, libdens) {
         const totalPopulationFrance = db.exec("SELECT SUM(total_population) FROM communes;")[0].values[0][0];
-    
+
         const order = [
-            "Grands centres urbains",
-            "Centres urbains intermédiaires",
-            "Ceintures urbaines",
-            "Petites villes",
-            "Bourgs ruraux",
-            "Rural à habitat dispersé",
-            "Rural à habitat très dispersé"
+            "Cities",
+            "Dense towns",
+            "Semi-dense towns",
+            "Suburban areas",
+            "Villages",
+            "Dispersed rural areas",
+            "Mostly unhabitated areas"
         ];
-    
+
+
         let query = `
             SELECT 
                 libdens, 
@@ -529,19 +440,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     
         Plotly.newPlot("fig2", traces, layout, { displayModeBar: false }); // Remove actions
     }
-    
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
