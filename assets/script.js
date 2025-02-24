@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     }).addTo(map);
 
     const sqlPromise = initSqlJs({ locateFile: file => `libs/sql-wasm.wasm` });
-    const dbPromise = fetch("data/communes.sqlite")
+    const dbPromise = fetch("data/communes_2024.sqlite")
         .then(res => res.arrayBuffer())
         .then(buf => sqlPromise.then(SQL => new SQL.Database(new Uint8Array(buf))));
     let totalPopulationFrance = 0;
